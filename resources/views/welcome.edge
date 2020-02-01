@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Hello Adonis</title>
-</head>
-<body>
-  <ul>
-    @each(user in users)
-    <li>{{ user.name }}</li>
-    @endeach
-  </ul>
-</body>
-</html>
+<ul>
+  @each(category in categories)
+    <li>{{ category.name }}</li>
+  @endeach
+</ul>
+

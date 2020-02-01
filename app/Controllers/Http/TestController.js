@@ -1,12 +1,12 @@
 "use strict";
 
-const User = use("App/Models/User");
+const Category = use("App/Models/Category");
 
 class TestController {
   async index({ view }) {
-    const users = await User.all();
+    const categories = await Category.all();
 
-    return view.render("welcome", { users: users.toJSON() });
+    return view.render("welcome", { categories: categories.toJSON() });
   }
 }
 
