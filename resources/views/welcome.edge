@@ -1,6 +1,11 @@
+@layout('layouts/app')
+@section('content')
+@set('title', 'Welcome!')
+
 <ul>
   @each(category in categories)
     <li>{{ category.name }}</li>
   @endeach
 </ul>
+@endsection
 
