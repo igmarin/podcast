@@ -8,7 +8,7 @@ class RegisterController {
     return view.render("auth.register");
   }
 
-  register({ request, response, auth, session }) {
+  async register({ request, response, auth, session }) {
     const userData = request.only(["name", "email", "password"]);
 
     const rules = {
@@ -24,6 +24,8 @@ class RegisterController {
 
       return response.redirect("back");
     }
+
+    return "Validation passed";
   }
 }
 
