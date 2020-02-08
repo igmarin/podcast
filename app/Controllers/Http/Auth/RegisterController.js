@@ -1,0 +1,30 @@
+"use strict";
+
+const { validateAll } = use("Validator");
+const User = use("App/Models/User");
+
+class RegisterController {
+  showRegister({ view }) {
+    return view.render("auth.register");
+  }
+
+  register({ request, response, auth, session }) {
+    const userData = request.only(["name", "email", "password"]);
+
+    const rules = {
+      name: "required",
+      email: "required|email|unique:users,email",
+      password: "required"
+    };
+
+    const validation = await validateAll(userData, rules);
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages()).flashExcept(["password"]);
+
+      return response.redirect("back");
+    }
+  }
+}
+
+module.exports = RegisterController;
