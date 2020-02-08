@@ -18,6 +18,4 @@ const Route = use("Route");
 
 Route.get("/", "TestController.index");
 Route.get("/register", "Auth/RegisterController.showRegister");
-Route.post("/register", "Auth/RegisterController.register")
-  .as("register")
-  .validator("User");
+Route.post("/register", "Auth/RegisterController.register").as("register");
