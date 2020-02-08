@@ -25,7 +25,10 @@ class RegisterController {
       return response.redirect("back");
     }
 
-    return "Validation passed";
+    const user = await User.create(userData);
+    await auth.login(user);
+
+    return response.route("home");
   }
 }
 
