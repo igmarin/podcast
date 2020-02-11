@@ -29,3 +29,7 @@ Route.get(
   "Auth/PasswordResetController.showResetForm"
 );
 Route.post("password/reset", "Auth/PasswordResetController/reset");
+Route.group(() => {
+  Route.get("/account", "UserController.show").as("settings.account");
+  Route.put("/account", "UserController.edit");
+}).prefix("settings");
