@@ -32,4 +32,6 @@ Route.post("password/reset", "Auth/PasswordResetController/reset");
 Route.group(() => {
   Route.get("/account", "UserController.show").as("settings.account");
   Route.put("/account", "UserController.edit");
+  Route.get("/password", "UserController.showPassword").as("settings.password");
+  Route.put("/password", "UserController.editPassword");
 }).prefix("settings");
