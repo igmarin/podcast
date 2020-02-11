@@ -11,3 +11,12 @@ Event.on("forgot::password", async data => {
       .subject("reset password podcast provider");
   });
 });
+
+Event.on("password::reset", async data => {
+  await Mail.send("auth.emails.password_reset_success", data, message => {
+    message
+      .to(data.user.email)
+      .from("hello@podcast.com")
+      .subject("Password reset successfully");
+  });
+});
