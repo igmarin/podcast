@@ -35,6 +35,5 @@ Route.group(() => {
   Route.get("/password", "UserController.showPassword").as("settings.password");
   Route.put("/password", "UserController.editPassword");
 }).prefix("settings");
-Route.resource("podcasts", "PodcastController")
-  .except(["index", "show"])
-  .validator(new Map([["podcasts.store"], ["Podcast"]]));
+Route.resource("podcasts", "PodcastController").except(["index", "show"]);
+//.validator(new Map([["podcasts.store"], ["StorePodcast"]]));

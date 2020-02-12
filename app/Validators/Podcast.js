@@ -1,6 +1,6 @@
 "use strict";
 
-class PodcastValidator {
+class Podcast {
   get validateAll() {
     return true;
   }
@@ -14,4 +14,4 @@ class PodcastValidator {
   }
 }
 
-module.exports = PodcastValidator;
+module.exports = Podcast;
