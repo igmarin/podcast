@@ -22,6 +22,7 @@ class PodcastController {
     };
 
     const validation = await validateAll(request.all(), rules);
+
     if (validation.fails()) {
       session.withErrors(validation.messages());
 
@@ -31,14 +32,10 @@ class PodcastController {
     const user = auth.user;
     const logo = await this._processLogoUpload(request);
 
-    await logo.move(Helpers.publicPath("uploads/logos"), {
-      name: `${uuid()}.${logo.subtype}`
-    });
-
     if (!logo.moved()) {
       session.flash({
         notification: {
-          type: danger,
+          type: "danger",
           message: logo.error().message
         }
       });
@@ -139,6 +136,18 @@ class PodcastController {
     });
 
     return logo;
+  }
+
+  async destroy({ params, auth, response }) {
+    const podcast = await Podcast.findOrFail(params.id);
+
+    if (auth.user.id !== podcast.user_id) {
+      throw new UnauthorizedException("You can only delete your podcast", 403);
+    }
+
+    await podcast.delete();
+
+    return response.route("myPodcast");
   }
 }
 
