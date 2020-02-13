@@ -138,7 +138,7 @@ class PodcastController {
     return logo;
   }
 
-  async destroy({ params, auth, response }) {
+  async destroy({ params, auth, response, session }) {
     const podcast = await Podcast.findOrFail(params.id);
 
     if (auth.user.id !== podcast.user_id) {
@@ -146,8 +146,22 @@ class PodcastController {
     }
 
     await podcast.delete();
-
+    session.flash({
+      notification: {
+        type: "success",
+        message: "Podcast deleted succesfully"
+      }
+    });
     return response.route("myPodcast");
+  }
+
+  async show({ params, view, request }) {
+    const podcast = await Podcast.query()
+      .where("slug", params.slug)
+      .with("podcaster")
+      .first();
+
+    return view.render("podcasts.show", { podcast: podcast.toJSON() });
   }
 }
 

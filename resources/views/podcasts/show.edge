@@ -1,0 +1,90 @@
+@layout('layouts.app')
+
+@section('content')
+  @set('title', podcast.title)
+
+  <section class="hero is-primary has-text-centered">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ podcast.title }}
+        </h1>
+        <h3 class="subtitle is-6">Host: {{ podcast.podcaster.name }}</h3>
+        <p>{{ podcast.description }}</p>
+
+        @loggedIn
+          <div style="padding-top: 25px">
+            @if(auth.user.id !== podcast.user_id)
+              @if(subscriptions.includes(auth.user.id))
+                <form action="{{ '/subscriptions/' + podcast.id + '?_method=DELETE' }}" method="post">
+              @else
+                <form action="{{ route('subscriptions.store') }}" method="post">
+                  <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+              @endif
+                {{ csrfField() }}
+                <button type="submit" class="button{{ subscriptions.includes(auth.user.id) ? ' is-danger' : ' is-info' }}">
+                  <span class="icon">
+                    <i class="fas fa-rss"></i>
+                  </span>
+                  <span>{{ subscriptions.includes(auth.user.id) ? ' Unsubscribe' : ' Subscribe' }}</span>
+                </button>
+              </form>
+            @endif
+          </div>
+        @endloggedIn
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        @include('layouts.partials._notification')
+<!--
+        <h2 class="subtitle is-3 has-text-centered">Latest episodes</h2>
+
+        @each(episode in episodes.data)
+          <div class="media">
+            <figure class="media-left">
+              <div class="image is-96x96">
+                <img src="{{ assetsUrl(podcast.logo) }}" alt="Podcast logo">
+              </div>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <h4>Episode {{ ($loop.total - $loop.index) }}: {{ episode.title }}</h4>
+                <p>
+                  {{ episode.summary }}
+                </p>
+              </div>
+
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <audio src="{{ assetsUrl(episode.audio) }}" controls>
+                      Your browser does not support the <code>audio</code> element.
+                    </audio>
+                  </div>
+                  <a class="level-item" href="{{ route('episodes.download', { slug: podcast.slug, id: episode.id }) }}">
+                    <span class="icon is-large">
+                      <i class="fas fa-download"></i>
+                    </span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </div>
+        @else
+          <p>No episodes uploaded for this podcast.</p>
+        @endeach
+
+        @if(episodes.data.length)
+          <hr>
+          @!component('components.pagination', pagination = episodes)
+        @endif
+      </div>
+
+      -->
+    </div>
+  </section>
+@endsection
