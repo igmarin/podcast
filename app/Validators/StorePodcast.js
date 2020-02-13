@@ -1,6 +1,7 @@
 "use strict";
+const Podcast = use("App/Models/Podcast");
 
-class Podcast {
+class StorePodcast {
   get validateAll() {
     return true;
   }
@@ -14,4 +15,4 @@ class Podcast {
   }
 }
 
-module.exports = Podcast;
+module.exports = StorePodcast;

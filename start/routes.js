@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.get("/", "TestController.index").as("home");
+Route.get("/", "HomeController.index").as("home");
 Route.get("register", "Auth/RegisterController.showRegister");
 Route.post("register", "Auth/RegisterController.register").as("register");
 Route.post("logout", "Auth/LogoutController.logout").as("logout");
@@ -36,4 +36,5 @@ Route.group(() => {
   Route.put("/password", "UserController.editPassword");
 }).prefix("settings");
 Route.resource("podcasts", "PodcastController").except(["index", "show"]);
-//.validator(new Map([["podcasts.store"], ["StorePodcast"]]));
+// .validator(new Map([["podcasts.store"], ["StorePodcast"]]));
+Route.get("my-podcast", "UserController.myPodcast").as("myPodcast");

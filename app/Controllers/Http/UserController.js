@@ -2,6 +2,12 @@
 const { validateAll } = use("Validator");
 const Hash = use("Hash");
 class UserController {
+  async myPodcast({ view, auth }) {
+    const podcast = await auth.user.podcast().fetch();
+
+    return view.render("users.my_podcast", { podcast });
+  }
+
   show({ view }) {
     return view.render("users.show");
   }

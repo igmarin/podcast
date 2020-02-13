@@ -21,7 +21,7 @@ class Podcast extends Model {
     return this.hasMany("App/Models/Episode");
   }
   category() {
-    return this.hasMany("App/Models/Category");
+    return this.belongsTo("App/Models/Category");
   }
 
   subscribers() {
