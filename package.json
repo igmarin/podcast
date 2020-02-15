@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "13.9.0"
+  },
   "name": "adonis-fullstack-app",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
@@ -47,8 +50,5 @@
   },
   "autoload": {
     "App": "./app"
-  },
-  "engines": {
-    "node": "13.9.0"
   }
 }
