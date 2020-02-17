@@ -4,7 +4,7 @@
 const Model = use("Model");
 
 class Category extends Model {
-  podcast() {
+  podcasts() {
     return this.hasMany("App/Models/Podcast");
   }
 }

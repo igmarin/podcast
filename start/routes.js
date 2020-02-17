@@ -38,4 +38,6 @@ Route.group(() => {
 Route.resource("podcasts", "PodcastController").except(["index", "show"]);
 // .validator(new Map([["podcasts.store"], ["StorePodcast"]]));
 Route.get("my-podcast", "UserController.myPodcast").as("myPodcast");
+Route.get('/categories/:slug', "CategoryController.show").as("categories.show")
+
 Route.get("/:slug", "PodcastController.show").as("podcasts.show");
