@@ -40,7 +40,7 @@ class User extends Model {
   }
 
   subscriptions() {
-    return this.belongsToMany("App/Models/Pocast")
+    return this.belongsToMany("App/Models/Podcast")
       .pivotTable("subscriptions")
       .withTimestamps();
   }

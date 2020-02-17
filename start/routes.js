@@ -38,6 +38,18 @@ Route.group(() => {
 Route.resource("podcasts", "PodcastController").except(["index", "show"]);
 // .validator(new Map([["podcasts.store"], ["StorePodcast"]]));
 Route.get("my-podcast", "UserController.myPodcast").as("myPodcast");
-Route.get('/categories/:slug', "CategoryController.show").as("categories.show")
-
+Route.get("/subscriptions", "UserController.subscriptions").as("subscriptions");
+Route.group(() => {
+  Route.post("/", "SubscriptionController.subscribe").as("subscriptions.store");
+  Route.delete("/:id", "SubscriptionController.destroy").as(
+    "subscriptions.destroy"
+  );
+}).prefix("subscriptions");
+Route.get("/:slug/episodes/create", "EpisodeController.create").as(
+  "episodes.create"
+);
+Route.get("/:slug/episodeseate", "EpisodeController.store").as(
+  "episodes.store"
+);
+Route.get("/categories/:slug", "CategoryController.show").as("categories.show");
 Route.get("/:slug", "PodcastController.show").as("podcasts.show");

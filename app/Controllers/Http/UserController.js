@@ -92,6 +92,13 @@ class UserController {
 
     return response.redirect("back");
   }
+
+  async subscriptions({ view, auth }) {
+    const subscriptions = await auth.user.subscriptions().fetch();
+    return view.render("users.subscriptions", {
+      subscriptions: subscriptions.toJSON()
+    });
+  }
 }
 
 module.exports = UserController;

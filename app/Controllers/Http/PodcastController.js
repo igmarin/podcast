@@ -6,7 +6,7 @@ const { validateAll } = use("Validator");
 const Helpers = use("Helpers");
 const uuid = require("uuid/v4");
 const UnauthorizedException = use("App/Exceptions/UnauthorizedException");
-
+const Database = use("Database");
 class PodcastController {
   async create({ view }) {
     const categories = await Category.pair("id", "name");
@@ -155,13 +155,23 @@ class PodcastController {
     return response.route("myPodcast");
   }
 
-  async show({ params, view, request }) {
+  async show({ params, view, request, auth }) {
     const podcast = await Podcast.query()
       .where("slug", params.slug)
       .with("podcaster")
       .first();
 
-    return view.render("podcasts.show", { podcast: podcast.toJSON() });
+    const subscriptions = await Database.table("subscriptions")
+      .where("podcast_id", podcast.id)
+      .pluck("user_id");
+
+    const subscribed = subscriptions.includes(auth.user.id);
+
+    return view.render("podcasts.show", {
+      podcast: podcast.toJSON(),
+      subscriptions: subscriptions,
+      subscribed: subscribed
+    });
   }
 }
 
