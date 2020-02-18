@@ -2,7 +2,7 @@
 const Podcast = use("App/Models/Podcast");
 const Episode = use("App/Models/Episode");
 const { validateAll } = use("Validator");
-const Helper = use("Helpers");
+const Helpers = use("Helpers");
 const Event = use("Event");
 
 class EpisodeController {
@@ -29,7 +29,7 @@ class EpisodeController {
       .first();
 
     const audio = request.file("audio", { type: ["mp3"] });
-    await audio.move(Helper.publicPath("uploads/audios"), {
+    await audio.move(Helpers.publicPath("uploads/audios"), {
       name: `${podcast.slug}_${podcast.episodes_count + 1}.${audio.subtype}`
     });
 

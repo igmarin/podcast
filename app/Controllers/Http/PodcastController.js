@@ -166,11 +166,16 @@ class PodcastController {
       .pluck("user_id");
 
     const subscribed = subscriptions.includes(auth.user.id);
+    const episodes = await podcast
+      .episodes()
+      .orderBy("id", "desc")
+      .fetch();
 
     return view.render("podcasts.show", {
       podcast: podcast.toJSON(),
       subscriptions: subscriptions,
-      subscribed: subscribed
+      subscribed: subscribed,
+      episodes: episodes
     });
   }
 }

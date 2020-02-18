@@ -48,8 +48,6 @@ Route.group(() => {
 Route.get("/:slug/episodes/create", "EpisodeController.create").as(
   "episodes.create"
 );
-Route.get("/:slug/episodeseate", "EpisodeController.store").as(
-  "episodes.store"
-);
+Route.post("/:slug/episodes", "EpisodeController.store").as("episodes.store");
 Route.get("/categories/:slug", "CategoryController.show").as("categories.show");
 Route.get("/:slug", "PodcastController.show").as("podcasts.show");

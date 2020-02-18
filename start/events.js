@@ -25,7 +25,7 @@ Event.on("new::episode", async data => {
   await Mail.send("emails.new_episode", data, message => {
     data.subscribers.forEach(subscriber => {
       message
-        .to(subscriberemail)
+        .to(subscriber.email)
         .from("hello@podcast.com")
         .subject("New podcast episode");
     });
