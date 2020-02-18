@@ -17,12 +17,17 @@
 const Route = use("Route");
 
 Route.get("/", "HomeController.index").as("home");
-Route.get("register", "Auth/RegisterController.showRegister");
+Route.get("register", "Auth/RegisterController.showRegister").middleware([
+  "guest"
+]);
 Route.post("register", "Auth/RegisterController.register").as("register");
 Route.post("logout", "Auth/LogoutController.logout").as("logout");
-Route.get("login", "Auth/LoginController.showLogin");
+Route.get("login", "Auth/LoginController.showLogin").middleware(["guest"]);
 Route.post("login", "Auth/LoginController.login").as("login");
-Route.get("password/reset", "Auth/PasswordResetController.showLinkRequestForm");
+Route.get(
+  "password/reset",
+  "Auth/PasswordResetController.showLinkRequestForm"
+).middleware(["guest"]);
 Route.post("password/email", "Auth/PasswordResetController.sendResetLinkEmail");
 Route.get(
   "password/reset/:token",
@@ -36,9 +41,10 @@ Route.group(() => {
   Route.put("/password", "UserController.editPassword");
 })
   .prefix("settings")
-  .middleware(["auth"]);
-Route.resource("podcasts", "PodcastController").except(["index", "show"]);
-// .validator(new Map([["podcasts.store"], ["StorePodcast"]]));
+  .middleware("auth");
+Route.resource("podcasts", "PodcastController")
+  .except(["index", "show"])
+  .middleware(new Map([["store"], ["CanOnlyCreatePodcast"]]));
 Route.get("my-podcast", "UserController.myPodcast").as("myPodcast");
 Route.get("/subscriptions", "UserController.subscriptions").as("subscriptions");
 Route.group(() => {
@@ -48,13 +54,13 @@ Route.group(() => {
   );
 })
   .prefix("subscriptions")
-  .middleware(["auth"]);
+  .middleware("auth");
 Route.get("/:slug/episodes/create", "EpisodeController.create")
   .as("episodes.create")
-  .middleware(["auth"]);
+  .middleware("auth");
 Route.post("/:slug/episodes", "EpisodeController.store")
   .as("episodes.store")
-  .middleware(["auth"]);
+  .middleware("auth");
 Route.post("/:slug/episodes/:id", "EpisodeController.download").as(
   "episodes.download"
 );

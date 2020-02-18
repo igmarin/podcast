@@ -23,7 +23,13 @@ const providers = [
   "@adonisjs/mail/providers/MailProvider",
   "@adonisjs/lucid-slugify/providers/SlugifyProvider"
 ];
+const globalMiddleware = ["Adonis/Middleware/AuthInit"];
 
+const namedMiddleware = {
+  auth: "Adonis/Middleware/Auth",
+  guest: "Adonis/Middleware/Guest",
+  guest: "Adonis/Middleware/Guest"
+};
 /*
 |--------------------------------------------------------------------------
 | Ace Providers
