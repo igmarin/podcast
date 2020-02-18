@@ -69,6 +69,11 @@ class EpisodeController {
 
     return response.route("myPodcast");
   }
+
+  async download({ params, response }) {
+    const episode = await Episode.findByOrFail(params.id);
+    return response.attachment(Helpers.publicPath(episode.audio));
+  }
 }
 
 module.exports = EpisodeController;

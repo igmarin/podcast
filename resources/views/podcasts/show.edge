@@ -43,7 +43,7 @@
 
         <h2 class="subtitle is-3 has-text-centered">Latest episodes</h2>
 
-        @each(episode in episodes.data)
+        @each(episode in episodes)
           <div class="media">
             <figure class="media-left">
               <div class="image is-96x96">
@@ -83,8 +83,6 @@
           @!component('components.pagination', pagination = episodes)
         @endif
       </div>
-
-      -->
     </div>
   </section>
 @endsection

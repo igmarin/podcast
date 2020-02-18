@@ -175,7 +175,7 @@ class PodcastController {
       podcast: podcast.toJSON(),
       subscriptions: subscriptions,
       subscribed: subscribed,
-      episodes: episodes
+      episodes: episodes.toJSON()
     });
   }
 }

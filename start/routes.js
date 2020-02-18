@@ -34,7 +34,9 @@ Route.group(() => {
   Route.put("/account", "UserController.edit");
   Route.get("/password", "UserController.showPassword").as("settings.password");
   Route.put("/password", "UserController.editPassword");
-}).prefix("settings");
+})
+  .prefix("settings")
+  .middleware(["auth"]);
 Route.resource("podcasts", "PodcastController").except(["index", "show"]);
 // .validator(new Map([["podcasts.store"], ["StorePodcast"]]));
 Route.get("my-podcast", "UserController.myPodcast").as("myPodcast");
@@ -44,10 +46,17 @@ Route.group(() => {
   Route.delete("/:id", "SubscriptionController.destroy").as(
     "subscriptions.destroy"
   );
-}).prefix("subscriptions");
-Route.get("/:slug/episodes/create", "EpisodeController.create").as(
-  "episodes.create"
+})
+  .prefix("subscriptions")
+  .middleware(["auth"]);
+Route.get("/:slug/episodes/create", "EpisodeController.create")
+  .as("episodes.create")
+  .middleware(["auth"]);
+Route.post("/:slug/episodes", "EpisodeController.store")
+  .as("episodes.store")
+  .middleware(["auth"]);
+Route.post("/:slug/episodes/:id", "EpisodeController.download").as(
+  "episodes.download"
 );
-Route.post("/:slug/episodes", "EpisodeController.store").as("episodes.store");
 Route.get("/categories/:slug", "CategoryController.show").as("categories.show");
 Route.get("/:slug", "PodcastController.show").as("podcasts.show");
